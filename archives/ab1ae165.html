@@ -1,0 +1,671 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>在 Linux 中按文件大小排序 | Leon</title><meta name="author" content="Leon"><meta name="copyright" content="Leon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在 Linux 系统中，管理文件和目录是日常操作的重要部分。在某些情况下，您可能需要按文件大小对文件进行排序，以便更好地了解存储使用情况或清理不必要的文件。本文将介绍几种在 Linux 中按文件大小排序的方法。 1. 使用 ls 命令ls 命令是列出目录内容的基本命令，可以通过一些选项来按文件大小排序。 1.1 基本用法ls -lS   -l：使用长格式列出文件详细信息。 -S：按文件大小进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Linux 中按文件大小排序">
+<meta property="og:url" content="https://leon-book.github.io/archives/ab1ae165.html">
+<meta property="og:site_name" content="Leon">
+<meta property="og:description" content="在 Linux 系统中，管理文件和目录是日常操作的重要部分。在某些情况下，您可能需要按文件大小对文件进行排序，以便更好地了解存储使用情况或清理不必要的文件。本文将介绍几种在 Linux 中按文件大小排序的方法。 1. 使用 ls 命令ls 命令是列出目录内容的基本命令，可以通过一些选项来按文件大小排序。 1.1 基本用法ls -lS   -l：使用长格式列出文件详细信息。 -S：按文件大小进行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leon-book.github.io/assets/profile/leon-avatar.png">
+<meta property="article:published_time" content="2017-10-24T02:22:00.000Z">
+<meta property="article:modified_time" content="2017-10-24T02:22:00.000Z">
+<meta property="article:author" content="Leon">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://leon-book.github.io/assets/profile/leon-avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "在 Linux 中按文件大小排序",
+  "url": "https://leon-book.github.io/archives/ab1ae165.html",
+  "image": "https://leon-book.github.io/assets/profile/leon-avatar.png",
+  "datePublished": "2017-10-24T02:22:00.000Z",
+  "dateModified": "2017-10-24T02:22:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Leon",
+      "url": "https://leon-book.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/assets/profile/leon-avatar.png"><link rel="canonical" href="https://leon-book.github.io/archives/ab1ae165.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":true,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '在 Linux 中按文件大小排序',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/arbitrage.css"><link rel="stylesheet" href="/css/works.css"><link rel="stylesheet" href="/css/leon.css?v=2"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/assets/profile/leon-avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">872</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/works/"><i class="fa-fw fas fa-code"></i><span> 代表作品</span></a></div><div class="menus_item"><a class="site-page" href="/arbitrage/"><i class="fa-fw fas fa-chart-line"></i><span> 量化套利</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/assets/theme/butterfly-teal-smoke.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Leon</span></a><a class="nav-page-title" href="/"><span class="site-name">在 Linux 中按文件大小排序</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/works/"><i class="fa-fw fas fa-code"></i><span> 代表作品</span></a></div><div class="menus_item"><a class="site-page" href="/arbitrage/"><i class="fa-fw fas fa-chart-line"></i><span> 量化套利</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">在 Linux 中按文件大小排序</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2017-10-24T02:22:00.000Z" title="发表于 2017-10-24 11:22:00">2017-10-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2017-10-24T02:22:00.000Z" title="更新于 2017-10-24 11:22:00">2017-10-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/archives/ab1ae165.html#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><!-- [skill: go-team-standards · 迁移] 公开正文迁移，保留原文与来源标识。 -->
+
+<p>在 Linux 系统中，管理文件和目录是日常操作的重要部分。在某些情况下，您可能需要按文件大小对文件进行排序，以便更好地了解存储使用情况或清理不必要的文件。本文将介绍几种在 Linux 中按文件大小排序的方法。</p>
+<h2 id="1-使用-ls-命令"><a href="#1-使用-ls-命令" class="headerlink" title="1. 使用 ls 命令"></a>1. 使用 <code>ls</code> 命令</h2><p><code>ls</code> 命令是列出目录内容的基本命令，可以通过一些选项来按文件大小排序。</p>
+<h3 id="1-1-基本用法"><a href="#1-1-基本用法" class="headerlink" title="1.1 基本用法"></a>1.1 基本用法</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lS</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-l</code>：使用长格式列出文件详细信息。</li>
+<li><code>-S</code>：按文件大小进行排序（从大到小）。</li>
+</ul>
+<p>如果您希望按文件大小从小到大进行排序，可以使用 <code>-r</code> 选项：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -lSr</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-只列出文件名"><a href="#1-2-只列出文件名" class="headerlink" title="1.2 只列出文件名"></a>1.2 只列出文件名</h3><p>如果只想列出文件名而不显示其他信息，可以使用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -S</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-使用-du-命令"><a href="#2-使用-du-命令" class="headerlink" title="2. 使用 du 命令"></a>2. 使用 <code>du</code> 命令</h2><p><code>du</code> 命令用于显示文件和目录的磁盘使用情况。结合 <code>sort</code> 命令，可以按文件大小排序。</p>
+<h3 id="2-1-列出当前目录下的文件和目录大小"><a href="#2-1-列出当前目录下的文件和目录大小" class="headerlink" title="2.1 列出当前目录下的文件和目录大小"></a>2.1 列出当前目录下的文件和目录大小</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">du</span> -ah . | <span class="built_in">sort</span> -h</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-a</code>：包括所有文件和目录。</li>
+<li><code>-h</code>：以人类可读的格式（例如 KB、MB）显示大小。</li>
+<li><code>sort -h</code>：按人类可读的数字进行排序。</li>
+</ul>
+<h2 id="3-使用-find-命令"><a href="#3-使用-find-命令" class="headerlink" title="3. 使用 find 命令"></a>3. 使用 <code>find</code> 命令</h2><p><code>find</code> 命令可以查找文件并支持按大小进行排序。</p>
+<h3 id="3-1-找到特定大小的文件"><a href="#3-1-找到特定大小的文件" class="headerlink" title="3.1 找到特定大小的文件"></a>3.1 找到特定大小的文件</h3><p>例如，查找大于 100MB 的文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find . -<span class="built_in">type</span> f -size +100M -<span class="built_in">exec</span> <span class="built_in">ls</span> -lh &#123;&#125; \; | <span class="built_in">sort</span> -k 5 -h</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-type f</code>：只查找文件。</li>
+<li><code>-size +100M</code>：查找大于 100MB 的文件。</li>
+<li><code>-exec</code>：对找到的每个文件执行 <code>ls -lh</code> 命令。</li>
+<li><code>sort -k 5 -h</code>：按文件大小（第五列）进行排序。</li>
+</ul>
+<h2 id="4-使用-ncdu-命令"><a href="#4-使用-ncdu-命令" class="headerlink" title="4. 使用 ncdu 命令"></a>4. 使用 <code>ncdu</code> 命令</h2><p><code>ncdu</code> 是一个基于文本的磁盘使用分析工具，可以直观地查看和管理文件和目录的大小。</p>
+<h3 id="4-1-安装-ncdu"><a href="#4-1-安装-ncdu" class="headerlink" title="4.1 安装 ncdu"></a>4.1 安装 <code>ncdu</code></h3><p>在 Debian&#x2F;Ubuntu 系统上：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ncdu</span><br></pre></td></tr></table></figure>
+
+<p>在 Red Hat&#x2F;CentOS 系统上：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> yum install ncdu</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-使用-ncdu"><a href="#4-2-使用-ncdu" class="headerlink" title="4.2 使用 ncdu"></a>4.2 使用 <code>ncdu</code></h3><p>在终端中运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ncdu</span><br></pre></td></tr></table></figure>
+
+<p>这将扫描当前目录并以可视化的形式显示文件和目录的大小，您可以使用上下箭头键浏览。</p>
+<h2 id="5-结论"><a href="#5-结论" class="headerlink" title="5. 结论"></a>5. 结论</h2><p>在 Linux 中，有多种方法可以按文件大小排序，以帮助您更好地管理系统存储。无论是使用 <code>ls</code>、<code>du</code>、<code>find</code> 还是 <code>ncdu</code>，这些工具都能有效地满足不同需求。希望这篇文章能帮助您更高效地管理文件和目录。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://leon-book.github.io">Leon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://leon-book.github.io/archives/ab1ae165.html">https://leon-book.github.io/archives/ab1ae165.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://leon-book.github.io" target="_blank">Leon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a></div><div class="post-share"><div class="social-share" data-image="/assets/profile/leon-avatar.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/archives/2467bf23.html" title="JavaScript 容错处理代码（屏蔽 JS 错误）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">JavaScript 容错处理代码（屏蔽 JS 错误）</div></div><div class="info-2"><div class="info-item-1">  在开发 JavaScript 应用时，错误是不可避免的。为了提高用户体验，您可能希望在发生错误时进行容错处理，避免应用程序崩溃。以下是几种常用的方法来屏蔽 JavaScript 错误。 1. 使用 try...catch 语句try...catch 是处理异常的标准方式，可以捕捉到代码块中的错误并进行处理： try &#123;    // 可能会抛出错误的代码    riskyFunction();&#125; catch (error) &#123;    console.error(&quot;发生错误:&quot;, error);    // 进行错误处理，比如显示用户友好的消息&#125;  示例function riskyFunction() &#123;    // 故意抛出错误    throw new Error(&quot;这是一个错误&quot;);&#125;try &#123;    riskyFunction();&#125; catch (error) &#123;    console.error(&quot;捕获到错误:&quot;, er...</div></div></div></a><a class="pagination-related" href="/archives/cc51b74e.html" title="Linux monitor 工具 监听redis 操作"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Linux monitor 工具 监听redis 操作</div></div><div class="info-2"><div class="info-item-1">  在现代应用中，Redis 作为一个高性能的内存数据库，广泛用于缓存、消息队列和数据存储等场景。当我们需要监控 Redis 的操作时，了解其性能和实时活动非常重要。本文将介绍如何使用 Linux 下的监控工具来监听和分析 Redis 的操作。 1. 为什么要监控 Redis？监控 Redis 操作可以帮助我们：  性能优化：识别慢查询和性能瓶颈。 故障排查：及时发现连接问题、内存不足等错误。 数据一致性：监测数据的读写操作，确保数据一致性。  2. 常用监控工具在 Linux 系统中，有多种工具可以用来监控 Redis 的操作，以下是一些常用工具： 2.1 Redis 自带的监控命令Redis 提供了一些内置命令，可以用来监控其性能和操作。  MONITOR：实时查看所有请求。  redis-cli MONITOR  该命令会输出所有来自客户端的命令及其执行时间，实时监控 Redis 的操作。 2.2 Redis-cli使用 redis-cli，可以通过一些命令获取 Redis 的统计信息。  INFO：获取 Redis 服务器的详细信息，包括内存使用情况、连接数和命令统计。 ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/archives/e920819c.html" title="理解Linux的单用户多任务，多用户多任务概念"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2017-02-05</div><div class="info-item-2">理解Linux的单用户多任务，多用户多任务概念</div></div><div class="info-2"><div class="info-item-1">  理解 Linux 的单用户多任务与多用户多任务概念引言在 Linux 操作系统中，单用户多任务和多用户多任务是两个重要的概念。它们描述了操作系统在不同的运行模式下如何处理任务和用户的并发执行。本文将解释这两个概念，并说明它们在 Linux 系统中的作用和区别。 单用户多任务在单用户多任务环境下，操作系统允许单个用户同时执行多个任务。这意味着用户可以在同一时间内运行多个应用程序，并在它们之间进行切换。每个任务都会分配一定的系统资源，如 CPU 时间、内存等。 Linux 提供了强大的多任务管理机制，使得用户可以同时运行多个程序，并轻松切换它们之间的上下文。通过在终端中运行多个命令、打开多个窗口或使用工作区切换等方式，用户可以同时处理多个任务。 单用户多任务环境非常适合个人计算机和工作站，因为它提供了高效的任务管理和资源利用。 多用户多任务在多用户多任务环境下，操作系统允许多个用户同时执行多个任务。每个用户都有自己的账户和权限，可以独立地运行和管理自己的任务和进程。 Linux 支持多用户访问和身份验证机制，因此多个用户可以同时登录到操作系统，并在各自的环境中执行任务。每个用户都...</div></div></div></a><a class="pagination-related" href="/archives/32d3a776.html" title="Linux 多功能系统资源统计 生成工具 dstat"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2018-11-05</div><div class="info-item-2">Linux 多功能系统资源统计 生成工具 dstat</div></div><div class="info-2"><div class="info-item-1">  官方对dstat的定义为：多功能系统资源统计生成工具。 在获取的信息上有点类似于top、free、iostat、vmstat等多个工具的合集，官方解释为vmstat、iostat、ifstat等工具的多功能替代品，且添加了许多额外的功能（Dstat is a versatile replacement for vmstat, iostat and ifstat. Dstat overcomes some of the limitations and adds some extra features.）；其结果可以保持到csv文件，使用脚本或第三方工具对性能进行分析利用（如通过监控平台监控，也可以保持到数据库）。 在Centos 6.x系统上安装基本服务器即默认安装，而在其他操作系统可能需要手动安装。 e.g. 监控CPU、内存、swap、磁盘使用率,并输出到csv。recordTime 是每条记录的间隔时间，以 秒 为单位。recordNum 是记录数。 $ dstat -tcms --freespace --disk-util --output /home/TempFold...</div></div></div></a><a class="pagination-related" href="/archives/8ab34e92.html" title="LINUX下查看用户列表"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2016-09-23</div><div class="info-item-2">LINUX下查看用户列表</div></div><div class="info-2"><div class="info-item-1">  Linux 下查看用户列表在 Linux 系统中，可以使用一些命令和文件来查看用户列表。了解当前系统上的用户列表对于管理和维护系统非常重要。本篇博客将介绍几种常用的方法来在 Linux 下查看用户列表。 1. 使用 cat /etc/passwd/etc/passwd 文件是 Linux 系统中存储用户账户信息的文件之一。可以使用 cat 命令来查看该文件的内容，从而获取用户列表。 cat /etc/passwd  上述命令会将 /etc/passwd 文件的内容输出到终端，其中每行表示一个用户账户，字段之间使用冒号进行分隔。通常，用户名位于第一个字段。 2. 使用 cut 命令和 /etc/passwd可以结合使用 cut 命令和 /etc/passwd 文件来获取用户列表。通过指定字段分隔符和字段编号，可以提取出用户名字段。 cut -d: -f1 /etc/passwd  上述命令会将 /etc/passwd 文件的内容按照冒号作为分隔符，并提取出每行的第一个字段，即用户名。 3. 使用 awk 命令和 /etc/passwd另一种获取用户列表的方法是使用 awk 命令...</div></div></div></a><a class="pagination-related" href="/archives/85e2415e.html" title="Linux清除用户登录记录和命令历史方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2023-08-12</div><div class="info-item-2">Linux清除用户登录记录和命令历史方法</div></div><div class="info-2"><div class="info-item-1">  清除登陆系统成功的记录echo &gt; /var/log/wtmp #此文件默认打开时乱码，可查到ip等信息last #此时即查不到用户登录信息  清除登陆系统失败的记录echo &gt; /var/log/btmp    #此文件默认打开时乱码，可查到登陆失败信息lastb                     #查不到登陆失败信息  清除历史执行命令history -c # 清空历史之行命令echo &gt; ./.bash_history # 或者，清空用户目录下的这个文件即可  清楚历史执行命令vi /root/history #新建记录文件history -c #清除记录history -r /root/history.txt #导入记录  examplevi /root/historyhistory -chistory -r /root/history.txthistoryecho &gt; /var/log/wtmp  lastecho &gt; /var/log/btmplastbhistory -cecho &gt; ./.bash_historyhis...</div></div></div></a><a class="pagination-related" href="/archives/302c5080.html" title=".bashrc与.profile文件在Linux中的区别"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2017-06-17</div><div class="info-item-2">.bashrc与.profile文件在Linux中的区别</div></div><div class="info-2"><div class="info-item-1">  深入了解.bashrc与.profile文件在Linux中的区别在Linux系统中，.bashrc和.profile是两个常见的配置文件，用于定义用户的环境变量、别名、函数和其他Shell配置。本文将深入探讨这两个文件之间的区别和各自的作用。 .bashrc.bashrc是Bash shell的配置文件，用于配置每个新的交互式Bash shell会话的行为。当用户打开一个新的终端窗口或者登录到系统时，.bashrc文件会被执行。一般来说，.bashrc文件包含的内容如下：  设置Shell提示符 定义别名和函数 设置Shell变量 执行用户自定义的命令  .profile.profile是用户登录时执行的文件，通常用于配置用户的环境变量和执行一次性的设置。当用户登录到系统时，.profile文件会被读取并执行。.profile文件经常包含以下内容：  设置用户的环境变量，如PATH、LANG等 执行一次性的初始化操作 启动代理程序或其他系统服务 设置用户的个性化环境  区别与用途 执行时机：.bashrc在每个新的Bash shell会话中执行，而.profile在用户登录时...</div></div></div></a><a class="pagination-related" href="/archives/43875eab.html" title="如何在 Linux 中获取进程运行时间"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-11</div><div class="info-item-2">如何在 Linux 中获取进程运行时间</div></div><div class="info-2"><div class="info-item-1">  当在 Linux 中想要查看进程的运行时间时，可以使用 ps 命令结合 etimes 选项来获取进程的运行时间。以下是一个使用 Markdown 格式写技术博客的示例： 如何在 Linux 中获取进程运行时间在 Linux 系统中，我们经常需要了解进程的运行时间，以便进行系统性能分析和故障排除。本文将介绍如何使用 ps 命令来获取进程的运行时间。 步骤 打开终端，进入 Linux 终端界面。  使用以下命令来获取进程运行时间： ps -eo pid,comm,etimes --no-headers   ps 命令用于显示当前运行进程的信息。 -eo 选项指定要显示的字段，pid 表示进程ID，comm 表示进程名称，etimes 表示进程的运行时间（以秒为单位）。 --no-headers 选项用于去除输出结果中的表头。   运行上述命令后，将会显示进程的运行时间列表，类似于以下输出： 1234  example_process  36005678  another_process  1800  上述输出中，第一列是进程ID，第二列是进程名称，第三列是进程的运行时间（以秒为单...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/assets/profile/leon-avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Leon</div><div class="author-info-description">技术、实践与记录</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">872</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">76</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">记录技术实践，分享学习与思考。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BD%BF%E7%94%A8-ls-%E5%91%BD%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">1. 使用 ls 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%8F%AA%E5%88%97%E5%87%BA%E6%96%87%E4%BB%B6%E5%90%8D"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 只列出文件名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8-du-%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">2. 使用 du 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%97%E5%87%BA%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%E5%A4%A7%E5%B0%8F"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 列出当前目录下的文件和目录大小</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8-find-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">3. 使用 find 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%89%BE%E5%88%B0%E7%89%B9%E5%AE%9A%E5%A4%A7%E5%B0%8F%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 找到特定大小的文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8-ncdu-%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">4. 使用 ncdu 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%AE%89%E8%A3%85-ncdu"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 安装 ncdu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E4%BD%BF%E7%94%A8-ncdu"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 使用 ncdu</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%BB%93%E8%AE%BA"><span class="toc-number">5.</span> <span class="toc-text">5. 结论</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/1ae35181.html" title="Okx合约量化套利开发心得"><img src="/assets/okx-platform/demo-funding.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Okx合约量化套利开发心得"/></a><div class="content"><a class="title" href="/archives/1ae35181.html" title="Okx合约量化套利开发心得">Okx合约量化套利开发心得</a><time datetime="2026-10-08T00:00:00.000Z" title="发表于 2026-10-08 09:00:00">2026-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/231ddf18.html" title="币安衍生品与 TradFi 业务全景"><img src="/assets/market-series/binance-overview.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="币安衍生品与 TradFi 业务全景"/></a><div class="content"><a class="title" href="/archives/231ddf18.html" title="币安衍生品与 TradFi 业务全景">币安衍生品与 TradFi 业务全景</a><time datetime="2026-10-04T03:00:00.000Z" title="发表于 2026-10-04 12:00:00">2026-10-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/c0a9ec57.html" title="币安指数玩法拆解"><img src="/assets/market-series/index.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="币安指数玩法拆解"/></a><div class="content"><a class="title" href="/archives/c0a9ec57.html" title="币安指数玩法拆解">币安指数玩法拆解</a><time datetime="2026-10-03T07:30:00.000Z" title="发表于 2026-10-03 16:30:00">2026-10-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/bb311ba8.html" title="币安外汇玩法拆解"><img src="/assets/market-series/fx.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="币安外汇玩法拆解"/></a><div class="content"><a class="title" href="/archives/bb311ba8.html" title="币安外汇玩法拆解">币安外汇玩法拆解</a><time datetime="2026-10-02T23:30:00.000Z" title="发表于 2026-10-03 08:30:00">2026-10-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/573914cc.html" title="币安大宗商品玩法拆解"><img src="/assets/market-series/commodities.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="币安大宗商品玩法拆解"/></a><div class="content"><a class="title" href="/archives/573914cc.html" title="币安大宗商品玩法拆解">币安大宗商品玩法拆解</a><time datetime="2026-10-02T15:30:00.000Z" title="发表于 2026-10-03 00:30:00">2026-10-03</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2015 - 2026 By Leon</span><span class="framework-info"><span>框架 </span><a href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div><div class="footer_custom_text">本地预览 · 访问量统计未接入</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><div class="js-pjax"><script>(() => {
+  const parseViewBox = viewBox => {
+    if (!viewBox) return null
+    const parts = viewBox.trim().split(/[\s,]+/).map(n => Number(n))
+    if (parts.length !== 4 || parts.some(n => Number.isNaN(n))) return null
+    return parts
+  }
+
+  const getSvgViewBox = svg => {
+    const attr = parseViewBox(svg.getAttribute('viewBox'))
+    if (attr) return attr
+
+    // Fallback: use bbox to build a viewBox
+    try {
+      const bbox = svg.getBBox()
+      if (bbox && bbox.width && bbox.height) return [bbox.x, bbox.y, bbox.width, bbox.height]
+    } catch (e) {
+      // getBBox may fail on some edge cases; ignore
+    }
+
+    const w = Number(svg.getAttribute('width')) || 0
+    const h = Number(svg.getAttribute('height')) || 0
+    if (w > 0 && h > 0) return [0, 0, w, h]
+    return [0, 0, 100, 100]
+  }
+
+  const setSvgViewBox = (svg, vb) => {
+    svg.setAttribute('viewBox', `${vb[0]} ${vb[1]} ${vb[2]} ${vb[3]}`)
+  }
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
+
+  const openSvgInNewTab = ({ source, initViewBox }) => {
+    const getClonedSvg = () => {
+      if (typeof source === 'string') {
+        const template = document.createElement('template')
+        template.innerHTML = source.trim()
+        const svg = template.content.querySelector('svg')
+        return svg ? svg.cloneNode(true) : null
+      }
+      if (source && typeof source.cloneNode === 'function') {
+        return source.cloneNode(true)
+      }
+      return null
+    }
+
+    const clone = getClonedSvg()
+    if (!clone) return
+    if (initViewBox && initViewBox.length === 4) {
+      clone.setAttribute('viewBox', initViewBox.join(' '))
+    }
+    if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+    if (!clone.getAttribute('xmlns:xlink') && clone.innerHTML.includes('xlink:')) {
+      clone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+    }
+    // inject background to match current theme
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+    const bg = getComputedStyle(document.body).backgroundColor || (isDark ? '#1e1e1e' : '#ffffff')
+    if (!clone.style.background) clone.style.background = bg
+
+    const serializer = new XMLSerializer()
+    const svgSource = serializer.serializeToString(clone)
+    const htmlSource = `<!doctype html><html><head><meta charset="utf-8" />
+      <style>
+        html, body { width: 100%; height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; background: ${bg}; }
+        svg { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+      </style>
+      </head><body>${svgSource}</body></html>`
+    const blob = new Blob([htmlSource], { type: 'text/html;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    window.open(url, '_blank', 'noopener')
+
+    setTimeout(() => URL.revokeObjectURL(url), 5000)
+  }
+
+  const attachMermaidViewerButton = wrap => {
+    let btn = wrap.querySelector('.mermaid-open-btn')
+    if (!btn) {
+      btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = 'mermaid-open-btn'
+      wrap.appendChild(btn)
+    }
+
+    btn.innerHTML = '<i class="fa fa-search fa-fw" aria-hidden="true"></i>'
+
+    if (!btn.__mermaidViewerBound) {
+      btn.addEventListener('click', e => {
+        e.preventDefault()
+        e.stopPropagation()
+        const svg = wrap.__mermaidOriginalSvg || wrap.querySelector('svg')
+        if (!svg) return
+        const initViewBox = wrap.__mermaidInitViewBox
+        openSvgInNewTab({ source: svg, initViewBox })
+      })
+      btn.__mermaidViewerBound = true
+    }
+  }
+
+  // Zoom around a point (px, py) in the SVG viewport (in viewBox coordinates)
+  const zoomAtPoint = (vb, factor, px, py) => {
+    const w = vb[2] * factor
+    const h = vb[3] * factor
+    const nx = px - (px - vb[0]) * factor
+    const ny = py - (py - vb[1]) * factor
+    return [nx, ny, w, h]
+  }
+
+  const initMermaidGestures = wrap => {
+    // Clean up previous event listeners and pending frames
+    if (wrap.__mermaidAbortController) {
+      wrap.__mermaidAbortController.abort()
+      if (wrap.__mermaidRafId) cancelAnimationFrame(wrap.__mermaidRafId)
+    }
+    const ac = new AbortController()
+    wrap.__mermaidAbortController = ac
+    const svg = wrap.querySelector('svg')
+    if (!svg) return
+
+    // Ensure viewBox exists so gestures always work
+    const initVb = getSvgViewBox(svg)
+    wrap.__mermaidInitViewBox = initVb
+    wrap.__mermaidCurViewBox = initVb.slice()
+    setSvgViewBox(svg, initVb)
+    // Disable default gestures to prevent scroll chaining and pinch-zoom penetration in Chrome
+    svg.style.touchAction = 'none'
+
+    // Cache BoundingClientRect, throttled on scroll to reduce reflow
+    let cachedRect = svg.getBoundingClientRect()
+    let rectDirty = false
+    const markRectDirty = () => { rectDirty = true }
+    window.addEventListener('resize', markRectDirty, { signal: ac.signal })
+    window.addEventListener('scroll', markRectDirty, { signal: ac.signal, capture: true })
+    const getRect = () => {
+      if (rectDirty) {
+        cachedRect = svg.getBoundingClientRect()
+        rectDirty = false
+      }
+      return cachedRect
+    }
+
+    // Precompute clamp bounds from initial viewBox
+    const minW = initVb[2] * 0.1
+    const maxW = initVb[2] * 10
+    const minH = initVb[3] * 0.1
+    const maxH = initVb[3] * 10
+    const clampVb = vb => {
+      const out = vb.slice()
+      out[2] = clamp(out[2], minW, maxW)
+      out[3] = clamp(out[3], minH, maxH)
+      return out
+    }
+
+    // Throttle DOM updates using requestAnimationFrame
+    let pendingVb = null
+    let rafId = null
+    const applyVb = () => {
+      if (pendingVb) {
+        wrap.__mermaidCurViewBox = pendingVb
+        setSvgViewBox(svg, pendingVb)
+        pendingVb = null
+      }
+      rafId = null
+      wrap.__mermaidRafId = null
+    }
+    const setCurVb = vb => {
+      pendingVb = clampVb(vb)
+      if (!rafId) {
+        rafId = requestAnimationFrame(applyVb)
+        wrap.__mermaidRafId = rafId
+      }
+    }
+
+    const state = {
+      pointers: new Map(),
+      startVb: null,
+      startDist: 0,
+      lastPointerX: 0,
+      lastPointerY: 0
+    }
+
+    const onPointerDown = e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return
+      svg.setPointerCapture(e.pointerId)
+      const curVb = wrap.__mermaidCurViewBox
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+      if (state.pointers.size === 1) {
+        state.startVb = curVb.slice()
+        state.lastPointerX = e.clientX
+        state.lastPointerY = e.clientY
+      } else if (state.pointers.size === 2) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        state.startDist = Math.hypot(dx, dy)
+        state.startVb = curVb.slice()
+      }
+    }
+
+    const onPointerMove = e => {
+      if (!state.pointers.has(e.pointerId)) return
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+      const curVb = wrap.__mermaidCurViewBox
+      const rect = getRect()
+      if (state.pointers.size === 1 && state.startVb) {
+        const p = state.pointers.values().next().value
+        const dxClient = p.x - state.lastPointerX
+        const dyClient = p.y - state.lastPointerY
+        state.lastPointerX = p.x
+        state.lastPointerY = p.y
+        const dx = dxClient * (curVb[2] / rect.width)
+        const dy = dyClient * (curVb[3] / rect.height)
+        setCurVb([curVb[0] - dx, curVb[1] - dy, curVb[2], curVb[3]])
+        return
+      }
+      if (state.pointers.size === 2 && state.startVb && state.startDist > 0) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        const dist = Math.hypot(dx, dy)
+        if (!dist) return
+        const factor = state.startDist / dist
+        const cx = (pts[0].x + pts[1].x) / 2
+        const cy = (pts[0].y + pts[1].y) / 2
+        const px = curVb[0] + (cx - rect.left) * (curVb[2] / rect.width)
+        const py = curVb[1] + (cy - rect.top) * (curVb[3] / rect.height)
+        setCurVb(zoomAtPoint(state.startVb, factor, px, py))
+      }
+    }
+
+    const onPointerUpOrCancel = e => {
+      // Release PointerCapture to avoid event capture anomalies
+      if (svg.hasPointerCapture && svg.hasPointerCapture(e.pointerId)) {
+        svg.releasePointerCapture(e.pointerId)
+      }
+      state.pointers.delete(e.pointerId)
+      if (state.pointers.size === 0) {
+        state.startVb = null
+        state.startDist = 0
+      } else if (state.pointers.size === 1) {
+        const p = state.pointers.values().next().value
+        state.lastPointerX = p.x
+        state.lastPointerY = p.y
+      }
+    }
+
+    const onWheel = e => {
+      // Prevent event bubbling from triggering external scroll
+      e.preventDefault()
+      e.stopPropagation()
+      // Normalize deltaY across deltaMode (Chrome uses pixels, Safari uses lines)
+      let delta = e.deltaY
+      if (e.deltaMode === 1) delta *= 16
+      else if (e.deltaMode === 2) delta *= 400
+
+      // Continuous zoom factor: smoother than fixed 1.1/0.9 steps
+      const zoomFactor = Math.pow(1.001, delta)
+
+      const curVb = wrap.__mermaidCurViewBox
+      const rect = getRect()
+      const px = curVb[0] + (e.clientX - rect.left) * (curVb[2] / rect.width)
+      const py = curVb[1] + (e.clientY - rect.top) * (curVb[3] / rect.height)
+      setCurVb(zoomAtPoint(curVb, zoomFactor, px, py))
+    }
+
+    const onDblClick = () => {
+      const init = wrap.__mermaidInitViewBox
+      if (init) setCurVb(init)
+    }
+
+    svg.addEventListener('pointerdown', onPointerDown, { signal: ac.signal })
+    svg.addEventListener('pointermove', onPointerMove, { signal: ac.signal })
+    svg.addEventListener('pointerup', onPointerUpOrCancel, { signal: ac.signal })
+    svg.addEventListener('pointercancel', onPointerUpOrCancel, { signal: ac.signal })
+    svg.addEventListener('wheel', onWheel, { passive: false, signal: ac.signal })
+    svg.addEventListener('dblclick', onDblClick, { signal: ac.signal })
+  }
+
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      // Clean up event listeners before removing old SVG
+      if (item.__mermaidAbortController) {
+        item.__mermaidAbortController.abort()
+      }
+      const oldSvg = item.querySelector('svg')
+      if (oldSvg) oldSvg.remove()
+      let config = {}
+      try {
+        config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      } catch (e) {
+        console.warn('[mermaid] failed to parse dataset.config:', e)
+      }
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+        if (false) initMermaidGestures(item)
+        item.__mermaidOriginalSvg = svg
+        if (false) attachMermaidViewerButton(item)
+      }
+
+      const handleError = err => {
+        console.error(`[mermaid] render failed for block #${index}:`, err)
+        const errorEl = document.createElement('div')
+        errorEl.className = 'mermaid-error'
+        errorEl.textContent = `Mermaid render error: ${err.message || err}`
+        mermaidSrc.insertAdjacentElement('afterend', errorEl)
+      }
+
+      try {
+        const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+        // mermaid v9 and v10 compatibility
+        if (typeof renderFn === 'string') {
+          renderMermaid(renderFn)
+        } else {
+          renderFn.then(({ svg }) => renderMermaid(svg)).catch(handleError)
+        }
+      } catch (err) {
+        handleError(err)
+      }
+    })
+  }
+
+  const codeToMermaid = $article => {
+    const codeMermaidEle = $article.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    const $article = document.getElementById('article-container')
+    if (!$article) return
+
+    if (true) codeToMermaid($article)
+    const $mermaid = $article.querySelectorAll('.mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.16.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"lang":"zh-CN"}
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'http://127.0.0.1:8089/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'http://127.0.0.1:8089/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('/assets/vendor/twikoo-1.7.24.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/arbitrage.js"></script><script defer src="/js/works.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>
