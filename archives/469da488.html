@@ -1,0 +1,621 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>产品新人笔记（一）：如何理解用户需求 | Leon</title><meta name="author" content="Leon"><meta name="copyright" content="Leon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="产品新人笔记（一）：如何理解用户需求最近在补产品基础课时，我发现新人很容易把“用户提到的功能”直接等同于“用户需求”。但用户说想要一个按钮，不代表真正的问题就是缺一个按钮；同样一个功能，对不同用户也可能有完全不同的价值。 这一篇整理三个理解需求的视角：Kano 模型、马斯洛需求层次和人性动机。它们不是计算答案的公式，更像是帮助我继续追问的三组问题。 一、Kano 模型：不同需求，满意度变化不一样K">
+<meta property="og:type" content="article">
+<meta property="og:title" content="产品新人笔记（一）：如何理解用户需求">
+<meta property="og:url" content="https://leon-book.github.io/archives/469da488.html">
+<meta property="og:site_name" content="Leon">
+<meta property="og:description" content="产品新人笔记（一）：如何理解用户需求最近在补产品基础课时，我发现新人很容易把“用户提到的功能”直接等同于“用户需求”。但用户说想要一个按钮，不代表真正的问题就是缺一个按钮；同样一个功能，对不同用户也可能有完全不同的价值。 这一篇整理三个理解需求的视角：Kano 模型、马斯洛需求层次和人性动机。它们不是计算答案的公式，更像是帮助我继续追问的三组问题。 一、Kano 模型：不同需求，满意度变化不一样K">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leon-book.github.io/assets/product-basics/kano-model.png">
+<meta property="article:published_time" content="2026-10-13T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-13T00:00:00.000Z">
+<meta property="article:author" content="Leon">
+<meta property="article:tag" content="Kano模型">
+<meta property="article:tag" content="产品基础">
+<meta property="article:tag" content="用户需求">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://leon-book.github.io/assets/product-basics/kano-model.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "产品新人笔记（一）：如何理解用户需求",
+  "url": "https://leon-book.github.io/archives/469da488.html",
+  "image": "https://leon-book.github.io/assets/product-basics/kano-model.png",
+  "datePublished": "2026-10-13T00:00:00.000Z",
+  "dateModified": "2026-10-13T00:00:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Leon",
+      "url": "https://leon-book.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/assets/profile/leon-avatar.png"><link rel="canonical" href="https://leon-book.github.io/archives/469da488.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":true,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '产品新人笔记（一）：如何理解用户需求',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/arbitrage.css"><link rel="stylesheet" href="/css/works.css"><link rel="stylesheet" href="/css/leon.css?v=2"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/assets/profile/leon-avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">876</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/works/"><i class="fa-fw fas fa-code"></i><span> 代表作品</span></a></div><div class="menus_item"><a class="site-page" href="/arbitrage/"><i class="fa-fw fas fa-chart-line"></i><span> 量化套利</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/assets/product-basics/kano-model.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Leon</span></a><a class="nav-page-title" href="/"><span class="site-name">产品新人笔记（一）：如何理解用户需求</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/works/"><i class="fa-fw fas fa-code"></i><span> 代表作品</span></a></div><div class="menus_item"><a class="site-page" href="/arbitrage/"><i class="fa-fw fas fa-chart-line"></i><span> 量化套利</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">产品新人笔记（一）：如何理解用户需求</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-10-13T00:00:00.000Z" title="发表于 2026-10-13 09:00:00">2026-10-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-10-13T00:00:00.000Z" title="更新于 2026-10-13 09:00:00">2026-10-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BA%A7%E5%93%81/">产品</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="产品新人笔记（一）：如何理解用户需求"><a href="#产品新人笔记（一）：如何理解用户需求" class="headerlink" title="产品新人笔记（一）：如何理解用户需求"></a>产品新人笔记（一）：如何理解用户需求</h1><p>最近在补产品基础课时，我发现新人很容易把“用户提到的功能”直接等同于“用户需求”。但用户说想要一个按钮，不代表真正的问题就是缺一个按钮；同样一个功能，对不同用户也可能有完全不同的价值。</p>
+<p>这一篇整理三个理解需求的视角：Kano 模型、马斯洛需求层次和人性动机。它们不是计算答案的公式，更像是帮助我继续追问的三组问题。</p>
+<h2 id="一、Kano-模型：不同需求，满意度变化不一样"><a href="#一、Kano-模型：不同需求，满意度变化不一样" class="headerlink" title="一、Kano 模型：不同需求，满意度变化不一样"></a>一、Kano 模型：不同需求，满意度变化不一样</h2><p>Kano 模型最实用的地方，是提醒我：功能做得更多，不一定就会让用户更满意。</p>
+<p><img src="/assets/product-basics/kano-model.png" alt="Kano 模型中的五类需求" title="Kano 模型中的五类需求"></p>
+<p>图中的横轴可以理解为功能提供的程度，纵轴是用户满意度。五类需求分别是：</p>
+<h3 id="1-必要型需求"><a href="#1-必要型需求" class="headerlink" title="1. 必要型需求"></a>1. 必要型需求</h3><p>没有它，用户会明显不满；有了它，用户只会觉得“本来就该如此”。</p>
+<p>例如账号注册能正常完成、订单金额计算正确、支付结果有明确反馈。这些能力通常不是宣传亮点，却决定产品能不能被正常使用。</p>
+<p>新人容易犯的错误，是因为必要型需求“不够新颖”就降低它的优先级。事实上，它们往往是产品的底线。</p>
+<h3 id="2-期望型需求"><a href="#2-期望型需求" class="headerlink" title="2. 期望型需求"></a>2. 期望型需求</h3><p>做得越好，用户通常越满意；做得越差，用户越不满意。</p>
+<p>例如搜索结果的准确性、页面加载速度、客服响应效率。用户能够感知这些能力的高低，也容易拿它们与同类产品比较。</p>
+<h3 id="3-兴奋型需求"><a href="#3-兴奋型需求" class="headerlink" title="3. 兴奋型需求"></a>3. 兴奋型需求</h3><p>用户没有明确期待，但产品提供后会带来惊喜；没有时，用户也未必抱怨。</p>
+<p>例如早期社交产品中的红包玩法，或者工具自动识别用户下一步可能需要的操作。兴奋型需求有时能形成记忆点，但如果必要型需求还没有做好，先追求惊喜往往会本末倒置。</p>
+<h3 id="4-无差异型需求"><a href="#4-无差异型需求" class="headerlink" title="4. 无差异型需求"></a>4. 无差异型需求</h3><p>做或不做，对目标用户的满意度影响都很小。</p>
+<p>这类需求不等于“永远没用”，而是要看当前用户、场景和目标。例如在一个低频工具里增加很深的个性化说明，对核心任务可能没有明显帮助。此时继续投入，只会增加维护成本。</p>
+<h3 id="5-反向型需求"><a href="#5-反向型需求" class="headerlink" title="5. 反向型需求"></a>5. 反向型需求</h3><p>产品提供得越多，部分用户反而越不满意。</p>
+<p>常见例子是过度提醒、强制引导、频繁弹窗，或者在不需要高安全等级的场景中设置冗长验证。需要注意的是，KYC 等实名认证可能是业务或合规要求，不能因为用户嫌麻烦就取消；产品要做的是减少重复输入、解释原因，并把必要摩擦控制在合理范围内。</p>
+<p><img src="/assets/product-basics/kano-priority.png" alt="不同类型需求的处理顺序示意" title="不同类型需求的处理顺序示意"></p>
+<p>上图适合当作初步检查顺序：先守住必要型需求，再改善期望型需求，之后考虑兴奋型需求；无差异和反向需求则要谨慎投入。不过真实排期还要结合业务目标、开发成本、依赖、合规和风险，不能只靠一张图决定。</p>
+<h2 id="二、马斯洛需求层次：理解用户为什么在意"><a href="#二、马斯洛需求层次：理解用户为什么在意" class="headerlink" title="二、马斯洛需求层次：理解用户为什么在意"></a>二、马斯洛需求层次：理解用户为什么在意</h2><p><img src="/assets/product-basics/maslow-hierarchy.png" alt="马斯洛需求层次示意" title="马斯洛需求层次示意"></p>
+<p>马斯洛需求层次常被概括为生理、安全、社交、尊重和自我实现。对产品新人来说，它的价值不是把每项功能硬塞进金字塔，而是帮助分析用户行为背后的动机。</p>
+<p>例如，同样是社区产品中的“发布内容”：</p>
+<ul>
+<li>有人是为了与朋友保持联系，偏向社交需要；</li>
+<li>有人希望获得认可，偏向尊重需要；</li>
+<li>有人把持续创作当成个人成长，可能接近自我实现。</li>
+</ul>
+<p>如果只看到“用户需要发布功能”，就可能只关注编辑器和按钮；如果继续理解动机，还会关注谁能看到、怎样获得反馈、怎样控制隐私，以及创作记录能否长期保存。</p>
+<p>它也有明显局限：人的需求不总是从低到高依次出现，同一个行为也可能同时包含多种动机。因此，它适合提出假设，不适合替代访谈、数据和实际场景观察。</p>
+<h2 id="三、人性动机：可以观察，不能无边界利用"><a href="#三、人性动机：可以观察，不能无边界利用" class="headerlink" title="三、人性动机：可以观察，不能无边界利用"></a>三、人性动机：可以观察，不能无边界利用</h2><p><img src="/assets/product-basics/seven-deadly-sins.png" alt="七宗罪与常见行为动机示意" title="七宗罪与常见行为动机示意"></p>
+<p>一些产品课程会用“七宗罪”概括人的欲望和弱点，例如虚荣、贪婪、懒惰、嫉妒等。这个视角能帮助理解排行榜、连续签到、限时优惠、社交比较等机制为什么容易吸引注意。</p>
+<p>但我更愿意把它当作风险提醒：理解人性不等于可以无限放大焦虑、沉迷或冲动。尤其涉及金融、健康、未成年人和付费决策时，短期转化不能代替长期信任。</p>
+<p>设计时至少要问：</p>
+<ol>
+<li>用户是否清楚自己正在做什么？</li>
+<li>退出、取消和关闭是否足够容易？</li>
+<li>页面有没有故意隐藏成本、风险或限制？</li>
+<li>这个机制是在帮助用户完成目标，还是只想延长停留时间？</li>
+</ol>
+<h2 id="四、新人怎么把三个视角用到需求分析里"><a href="#四、新人怎么把三个视角用到需求分析里" class="headerlink" title="四、新人怎么把三个视角用到需求分析里"></a>四、新人怎么把三个视角用到需求分析里</h2><p>拿到一个新需求时，我可以先写一张简单的需求卡：</p>
+<ul>
+<li><strong>用户是谁</strong>：不要只写“所有用户”。</li>
+<li><strong>发生在什么场景</strong>：用户当时想完成什么任务？</li>
+<li><strong>真正的问题是什么</strong>：用户为什么提出这个功能？</li>
+<li><strong>属于哪类需求</strong>：必要、期望、兴奋、无差异，还是可能产生反感？</li>
+<li><strong>背后的动机是什么</strong>：安全、社交、认可、效率，还是其他？</li>
+<li><strong>证据是什么</strong>：来自访谈、反馈、行为数据，还是目前只是团队假设？</li>
+<li><strong>可能的副作用</strong>：会不会增加理解成本、操作摩擦或诱导风险？</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Kano 模型帮助区分需求对满意度的影响，马斯洛需求层次帮助理解动机，人性视角则提醒我同时关注吸引力和伦理边界。三者共同的作用，是让我不要停在“用户说要什么”，而是继续追问“为什么需要、对谁重要、用什么证据判断”。</p>
+<p>下一篇继续整理：当需求和问题越来越多时，怎样用 SWOT、用户体验五要素和四象限法则组织分析并确定优先级。</p>
+<blockquote>
+<p>本文配图来自个人课程学习资料截图，仅用于辅助说明；正文中的场景均为概念示例，不代表真实项目效果或实盘数据。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://leon-book.github.io">Leon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://leon-book.github.io/archives/469da488.html">https://leon-book.github.io/archives/469da488.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://leon-book.github.io" target="_blank">Leon</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BA%A7%E5%93%81%E5%9F%BA%E7%A1%80/">产品基础</a><a class="post-meta__tags" href="/tags/%E7%94%A8%E6%88%B7%E9%9C%80%E6%B1%82/">用户需求</a><a class="post-meta__tags" href="/tags/Kano%E6%A8%A1%E5%9E%8B/">Kano模型</a></div><div class="post-share"><div class="social-share" data-image="/assets/product-basics/kano-model.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/archives/d9858ffd.html" title="产品新人笔记（二）：如何分析产品并确定优先级"><img class="cover" src="/assets/product-basics/priority-quadrant.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">产品新人笔记（二）：如何分析产品并确定优先级</div></div><div class="info-2"><div class="info-item-1">产品新人笔记（二）：如何分析产品并确定优先级上一篇解决的是“怎样理解一个需求”。继续往下走，新人很快会遇到另一个问题：需求、问题和想法同时出现，到底应该先看什么、先做什么？ 我把 SWOT、用户体验五要素和四象限法则放在一起学习，是因为它们分别回答三个层次的问题：产品处在什么环境里、体验问题发生在哪一层、当前事项应该怎样排序。 一、SWOT：先把内外部情况分开SWOT 包含四个部分：  Strengths，优势：产品或团队内部已经具备的有利条件； Weaknesses，劣势：内部能力、资源或体验上的不足； Opportunities，机会：市场、技术、渠道或政策环境带来的外部机会； Threats，威胁：竞争、替代方案、政策变化等外部风险。  对新人来说，最重要的不是记住四个英文单词，而是不要把内部问题和外部变化混在一起。 假设分析一款新人学习工具，可以写成：    类型 示例内容 需要继续验证的问题    优势 内容结构清晰、上手步骤少 新用户是否真的能独立完成第一项任务？   劣势 案例少、搜索不够准确 哪一类查询最容易没有结果？   机会 用户对碎片化学习有需求 这是持续需...</div></div></div></a><a class="pagination-related" href="/archives/1ae35181.html" title="Okx合约量化套利开发心得"><img class="cover" src="/assets/okx-platform/demo-funding.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Okx合约量化套利开发心得</div></div><div class="info-2"><div class="info-item-1">十一假期的一项开发成果：合约量化套利平台已进入实盘运行，Lark 接入每日报告、风险报警与机会巡检。记录从看懂数据到持续管理仓位的体会。</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/archives/868e037a.html" title="产品新人笔记（四）：导航系统怎么设计"><img class="cover" src="/assets/product-basics/rudder-navigation.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-13</div><div class="info-item-2">产品新人笔记（四）：导航系统怎么设计</div></div><div class="info-2"><div class="info-item-1">产品新人笔记（四）：导航系统怎么设计刚开始画原型时，我容易把导航理解为“页面上放哪些按钮”。继续学习后才发现，导航真正解决的是三个问题：用户现在在哪里、接下来可以去哪里、怎样回到自己熟悉的位置。 这篇整理三种课程中提到的导航形式，以及状态栏、导航栏、标签栏等常见界面栏位。这里讨论的是通用设计思路，不是要求每个产品都使用同一种结构。 一、先理解导航承担的任务一个基本可用的导航系统，至少应该帮助用户：  识别当前所在页面和层级； 看见主要功能入口； 在核心任务之间切换； 返回上一层或稳定的起点； 预期点击之后会发生什么。  如果一个页面视觉上很漂亮，却让用户不知道怎样离开、怎样返回或内容属于哪个模块，那么导航仍然是不完整的。 二、舵式导航：围绕一个核心动作展开 舵式导航通常在底部中心放置一个更突出的主操作，点击后展开或进入同等级的多个操作入口。它常见于内容发布、创作或拍摄类产品。 例如社区产品可以把“发布”作为中心动作，再提供发图文、拍摄、直播等入口。它的优势是核心动作突出，也能收纳一组相近操作。 适合的情况：  产品存在明确、高频的主操作； 主操作下有几个关系紧密的子类型； 用户已...</div></div></div></a><a class="pagination-related" href="/archives/d4fb7ed1.html" title="产品新人笔记（三）：产品设计常用的七条基础定律"><img class="cover" src="/assets/product-basics/fitts-mobile-targets.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-13</div><div class="info-item-2">产品新人笔记（三）：产品设计常用的七条基础定律</div></div><div class="info-2"><div class="info-item-1">产品新人笔记（三）：产品设计常用的七条基础定律学习交互设计时，我最初容易把各种“定律”当成标准答案：按钮越大越好、选项越少越好、页面越简单越好。真正整理下来才发现，这些定律描述的是常见规律和设计取舍，不是脱离场景就能套用的模板。 这篇用新人能直接理解的方式，记录七条常见原则，以及它们容易被误用的地方。 一、菲茨定律：目标越容易碰到，操作越快菲茨定律关注目标大小与移动距离。简单理解：目标越大、距离越近，用户完成指向操作通常越容易。   新人可以这样使用：  高频或关键操作提供足够大的点击区域； 移动端主要操作尽量放在容易触达的位置； 不要把两个高风险按钮紧贴在一起； 图标看起来很大时，也要检查实际可点击区域。  常见误区是“重要按钮越大越好”。尺寸只是一个因素，还要考虑信息层级、误触风险和页面整体平衡。删除、支付等操作也不应该仅因为重要就放在最容易误触的位置。 二、席克定律：选择越多，决策通常越慢席克定律说明，当选项数量和复杂度增加时，用户做决定所需的时间通常也会增加。   新人可以尝试：  先突出当前任务最需要的选项； 把低频能力放入“更多”或二级页面； 用清晰分类、搜索和默认值...</div></div></div></a><a class="pagination-related" href="/archives/d9858ffd.html" title="产品新人笔记（二）：如何分析产品并确定优先级"><img class="cover" src="/assets/product-basics/priority-quadrant.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-10-13</div><div class="info-item-2">产品新人笔记（二）：如何分析产品并确定优先级</div></div><div class="info-2"><div class="info-item-1">产品新人笔记（二）：如何分析产品并确定优先级上一篇解决的是“怎样理解一个需求”。继续往下走，新人很快会遇到另一个问题：需求、问题和想法同时出现，到底应该先看什么、先做什么？ 我把 SWOT、用户体验五要素和四象限法则放在一起学习，是因为它们分别回答三个层次的问题：产品处在什么环境里、体验问题发生在哪一层、当前事项应该怎样排序。 一、SWOT：先把内外部情况分开SWOT 包含四个部分：  Strengths，优势：产品或团队内部已经具备的有利条件； Weaknesses，劣势：内部能力、资源或体验上的不足； Opportunities，机会：市场、技术、渠道或政策环境带来的外部机会； Threats，威胁：竞争、替代方案、政策变化等外部风险。  对新人来说，最重要的不是记住四个英文单词，而是不要把内部问题和外部变化混在一起。 假设分析一款新人学习工具，可以写成：    类型 示例内容 需要继续验证的问题    优势 内容结构清晰、上手步骤少 新用户是否真的能独立完成第一项任务？   劣势 案例少、搜索不够准确 哪一类查询最容易没有结果？   机会 用户对碎片化学习有需求 这是持续需...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/assets/profile/leon-avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Leon</div><div class="author-info-description">技术、实践与记录</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">876</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">记录技术实践，分享学习与思考。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%A7%E5%93%81%E6%96%B0%E4%BA%BA%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E7%94%A8%E6%88%B7%E9%9C%80%E6%B1%82"><span class="toc-number">1.</span> <span class="toc-text">产品新人笔记（一）：如何理解用户需求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Kano-%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%8D%E5%90%8C%E9%9C%80%E6%B1%82%EF%BC%8C%E6%BB%A1%E6%84%8F%E5%BA%A6%E5%8F%98%E5%8C%96%E4%B8%8D%E4%B8%80%E6%A0%B7"><span class="toc-number">1.1.</span> <span class="toc-text">一、Kano 模型：不同需求，满意度变化不一样</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%BF%85%E8%A6%81%E5%9E%8B%E9%9C%80%E6%B1%82"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 必要型需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9C%9F%E6%9C%9B%E5%9E%8B%E9%9C%80%E6%B1%82"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 期望型需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B4%E5%A5%8B%E5%9E%8B%E9%9C%80%E6%B1%82"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. 兴奋型需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%97%A0%E5%B7%AE%E5%BC%82%E5%9E%8B%E9%9C%80%E6%B1%82"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. 无差异型需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%8F%8D%E5%90%91%E5%9E%8B%E9%9C%80%E6%B1%82"><span class="toc-number">1.1.5.</span> <span class="toc-text">5. 反向型需求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%A9%AC%E6%96%AF%E6%B4%9B%E9%9C%80%E6%B1%82%E5%B1%82%E6%AC%A1%EF%BC%9A%E7%90%86%E8%A7%A3%E7%94%A8%E6%88%B7%E4%B8%BA%E4%BB%80%E4%B9%88%E5%9C%A8%E6%84%8F"><span class="toc-number">1.2.</span> <span class="toc-text">二、马斯洛需求层次：理解用户为什么在意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BA%BA%E6%80%A7%E5%8A%A8%E6%9C%BA%EF%BC%9A%E5%8F%AF%E4%BB%A5%E8%A7%82%E5%AF%9F%EF%BC%8C%E4%B8%8D%E8%83%BD%E6%97%A0%E8%BE%B9%E7%95%8C%E5%88%A9%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">三、人性动机：可以观察，不能无边界利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%96%B0%E4%BA%BA%E6%80%8E%E4%B9%88%E6%8A%8A%E4%B8%89%E4%B8%AA%E8%A7%86%E8%A7%92%E7%94%A8%E5%88%B0%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90%E9%87%8C"><span class="toc-number">1.4.</span> <span class="toc-text">四、新人怎么把三个视角用到需求分析里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">小结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/868e037a.html" title="产品新人笔记（四）：导航系统怎么设计"><img src="/assets/product-basics/rudder-navigation.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="产品新人笔记（四）：导航系统怎么设计"/></a><div class="content"><a class="title" href="/archives/868e037a.html" title="产品新人笔记（四）：导航系统怎么设计">产品新人笔记（四）：导航系统怎么设计</a><time datetime="2026-10-13T00:30:00.000Z" title="发表于 2026-10-13 09:30:00">2026-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/d4fb7ed1.html" title="产品新人笔记（三）：产品设计常用的七条基础定律"><img src="/assets/product-basics/fitts-mobile-targets.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="产品新人笔记（三）：产品设计常用的七条基础定律"/></a><div class="content"><a class="title" href="/archives/d4fb7ed1.html" title="产品新人笔记（三）：产品设计常用的七条基础定律">产品新人笔记（三）：产品设计常用的七条基础定律</a><time datetime="2026-10-13T00:20:00.000Z" title="发表于 2026-10-13 09:20:00">2026-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/d9858ffd.html" title="产品新人笔记（二）：如何分析产品并确定优先级"><img src="/assets/product-basics/priority-quadrant.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="产品新人笔记（二）：如何分析产品并确定优先级"/></a><div class="content"><a class="title" href="/archives/d9858ffd.html" title="产品新人笔记（二）：如何分析产品并确定优先级">产品新人笔记（二）：如何分析产品并确定优先级</a><time datetime="2026-10-13T00:10:00.000Z" title="发表于 2026-10-13 09:10:00">2026-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/469da488.html" title="产品新人笔记（一）：如何理解用户需求"><img src="/assets/product-basics/kano-model.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="产品新人笔记（一）：如何理解用户需求"/></a><div class="content"><a class="title" href="/archives/469da488.html" title="产品新人笔记（一）：如何理解用户需求">产品新人笔记（一）：如何理解用户需求</a><time datetime="2026-10-13T00:00:00.000Z" title="发表于 2026-10-13 09:00:00">2026-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/1ae35181.html" title="Okx合约量化套利开发心得"><img src="/assets/okx-platform/demo-funding.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Okx合约量化套利开发心得"/></a><div class="content"><a class="title" href="/archives/1ae35181.html" title="Okx合约量化套利开发心得">Okx合约量化套利开发心得</a><time datetime="2026-10-08T00:00:00.000Z" title="发表于 2026-10-08 09:00:00">2026-10-08</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2015 - 2026 By Leon</span><span class="framework-info"><span>框架 </span><a href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div><div class="footer_custom_text">本地预览 · 访问量统计未接入</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><div class="js-pjax"><script>(() => {
+  const parseViewBox = viewBox => {
+    if (!viewBox) return null
+    const parts = viewBox.trim().split(/[\s,]+/).map(n => Number(n))
+    if (parts.length !== 4 || parts.some(n => Number.isNaN(n))) return null
+    return parts
+  }
+
+  const getSvgViewBox = svg => {
+    const attr = parseViewBox(svg.getAttribute('viewBox'))
+    if (attr) return attr
+
+    // Fallback: use bbox to build a viewBox
+    try {
+      const bbox = svg.getBBox()
+      if (bbox && bbox.width && bbox.height) return [bbox.x, bbox.y, bbox.width, bbox.height]
+    } catch (e) {
+      // getBBox may fail on some edge cases; ignore
+    }
+
+    const w = Number(svg.getAttribute('width')) || 0
+    const h = Number(svg.getAttribute('height')) || 0
+    if (w > 0 && h > 0) return [0, 0, w, h]
+    return [0, 0, 100, 100]
+  }
+
+  const setSvgViewBox = (svg, vb) => {
+    svg.setAttribute('viewBox', `${vb[0]} ${vb[1]} ${vb[2]} ${vb[3]}`)
+  }
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v))
+
+  const openSvgInNewTab = ({ source, initViewBox }) => {
+    const getClonedSvg = () => {
+      if (typeof source === 'string') {
+        const template = document.createElement('template')
+        template.innerHTML = source.trim()
+        const svg = template.content.querySelector('svg')
+        return svg ? svg.cloneNode(true) : null
+      }
+      if (source && typeof source.cloneNode === 'function') {
+        return source.cloneNode(true)
+      }
+      return null
+    }
+
+    const clone = getClonedSvg()
+    if (!clone) return
+    if (initViewBox && initViewBox.length === 4) {
+      clone.setAttribute('viewBox', initViewBox.join(' '))
+    }
+    if (!clone.getAttribute('xmlns')) clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+    if (!clone.getAttribute('xmlns:xlink') && clone.innerHTML.includes('xlink:')) {
+      clone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+    }
+    // inject background to match current theme
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+    const bg = getComputedStyle(document.body).backgroundColor || (isDark ? '#1e1e1e' : '#ffffff')
+    if (!clone.style.background) clone.style.background = bg
+
+    const serializer = new XMLSerializer()
+    const svgSource = serializer.serializeToString(clone)
+    const htmlSource = `<!doctype html><html><head><meta charset="utf-8" />
+      <style>
+        html, body { width: 100%; height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; background: ${bg}; }
+        svg { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+      </style>
+      </head><body>${svgSource}</body></html>`
+    const blob = new Blob([htmlSource], { type: 'text/html;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    window.open(url, '_blank', 'noopener')
+
+    setTimeout(() => URL.revokeObjectURL(url), 5000)
+  }
+
+  const attachMermaidViewerButton = wrap => {
+    let btn = wrap.querySelector('.mermaid-open-btn')
+    if (!btn) {
+      btn = document.createElement('button')
+      btn.type = 'button'
+      btn.className = 'mermaid-open-btn'
+      wrap.appendChild(btn)
+    }
+
+    btn.innerHTML = '<i class="fa fa-search fa-fw" aria-hidden="true"></i>'
+
+    if (!btn.__mermaidViewerBound) {
+      btn.addEventListener('click', e => {
+        e.preventDefault()
+        e.stopPropagation()
+        const svg = wrap.__mermaidOriginalSvg || wrap.querySelector('svg')
+        if (!svg) return
+        const initViewBox = wrap.__mermaidInitViewBox
+        openSvgInNewTab({ source: svg, initViewBox })
+      })
+      btn.__mermaidViewerBound = true
+    }
+  }
+
+  // Zoom around a point (px, py) in the SVG viewport (in viewBox coordinates)
+  const zoomAtPoint = (vb, factor, px, py) => {
+    const w = vb[2] * factor
+    const h = vb[3] * factor
+    const nx = px - (px - vb[0]) * factor
+    const ny = py - (py - vb[1]) * factor
+    return [nx, ny, w, h]
+  }
+
+  const initMermaidGestures = wrap => {
+    // Clean up previous event listeners and pending frames
+    if (wrap.__mermaidAbortController) {
+      wrap.__mermaidAbortController.abort()
+      if (wrap.__mermaidRafId) cancelAnimationFrame(wrap.__mermaidRafId)
+    }
+    const ac = new AbortController()
+    wrap.__mermaidAbortController = ac
+    const svg = wrap.querySelector('svg')
+    if (!svg) return
+
+    // Ensure viewBox exists so gestures always work
+    const initVb = getSvgViewBox(svg)
+    wrap.__mermaidInitViewBox = initVb
+    wrap.__mermaidCurViewBox = initVb.slice()
+    setSvgViewBox(svg, initVb)
+    // Disable default gestures to prevent scroll chaining and pinch-zoom penetration in Chrome
+    svg.style.touchAction = 'none'
+
+    // Cache BoundingClientRect, throttled on scroll to reduce reflow
+    let cachedRect = svg.getBoundingClientRect()
+    let rectDirty = false
+    const markRectDirty = () => { rectDirty = true }
+    window.addEventListener('resize', markRectDirty, { signal: ac.signal })
+    window.addEventListener('scroll', markRectDirty, { signal: ac.signal, capture: true })
+    const getRect = () => {
+      if (rectDirty) {
+        cachedRect = svg.getBoundingClientRect()
+        rectDirty = false
+      }
+      return cachedRect
+    }
+
+    // Precompute clamp bounds from initial viewBox
+    const minW = initVb[2] * 0.1
+    const maxW = initVb[2] * 10
+    const minH = initVb[3] * 0.1
+    const maxH = initVb[3] * 10
+    const clampVb = vb => {
+      const out = vb.slice()
+      out[2] = clamp(out[2], minW, maxW)
+      out[3] = clamp(out[3], minH, maxH)
+      return out
+    }
+
+    // Throttle DOM updates using requestAnimationFrame
+    let pendingVb = null
+    let rafId = null
+    const applyVb = () => {
+      if (pendingVb) {
+        wrap.__mermaidCurViewBox = pendingVb
+        setSvgViewBox(svg, pendingVb)
+        pendingVb = null
+      }
+      rafId = null
+      wrap.__mermaidRafId = null
+    }
+    const setCurVb = vb => {
+      pendingVb = clampVb(vb)
+      if (!rafId) {
+        rafId = requestAnimationFrame(applyVb)
+        wrap.__mermaidRafId = rafId
+      }
+    }
+
+    const state = {
+      pointers: new Map(),
+      startVb: null,
+      startDist: 0,
+      lastPointerX: 0,
+      lastPointerY: 0
+    }
+
+    const onPointerDown = e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return
+      svg.setPointerCapture(e.pointerId)
+      const curVb = wrap.__mermaidCurViewBox
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+      if (state.pointers.size === 1) {
+        state.startVb = curVb.slice()
+        state.lastPointerX = e.clientX
+        state.lastPointerY = e.clientY
+      } else if (state.pointers.size === 2) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        state.startDist = Math.hypot(dx, dy)
+        state.startVb = curVb.slice()
+      }
+    }
+
+    const onPointerMove = e => {
+      if (!state.pointers.has(e.pointerId)) return
+      state.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+      const curVb = wrap.__mermaidCurViewBox
+      const rect = getRect()
+      if (state.pointers.size === 1 && state.startVb) {
+        const p = state.pointers.values().next().value
+        const dxClient = p.x - state.lastPointerX
+        const dyClient = p.y - state.lastPointerY
+        state.lastPointerX = p.x
+        state.lastPointerY = p.y
+        const dx = dxClient * (curVb[2] / rect.width)
+        const dy = dyClient * (curVb[3] / rect.height)
+        setCurVb([curVb[0] - dx, curVb[1] - dy, curVb[2], curVb[3]])
+        return
+      }
+      if (state.pointers.size === 2 && state.startVb && state.startDist > 0) {
+        const pts = [...state.pointers.values()]
+        const dx = pts[0].x - pts[1].x
+        const dy = pts[0].y - pts[1].y
+        const dist = Math.hypot(dx, dy)
+        if (!dist) return
+        const factor = state.startDist / dist
+        const cx = (pts[0].x + pts[1].x) / 2
+        const cy = (pts[0].y + pts[1].y) / 2
+        const px = curVb[0] + (cx - rect.left) * (curVb[2] / rect.width)
+        const py = curVb[1] + (cy - rect.top) * (curVb[3] / rect.height)
+        setCurVb(zoomAtPoint(state.startVb, factor, px, py))
+      }
+    }
+
+    const onPointerUpOrCancel = e => {
+      // Release PointerCapture to avoid event capture anomalies
+      if (svg.hasPointerCapture && svg.hasPointerCapture(e.pointerId)) {
+        svg.releasePointerCapture(e.pointerId)
+      }
+      state.pointers.delete(e.pointerId)
+      if (state.pointers.size === 0) {
+        state.startVb = null
+        state.startDist = 0
+      } else if (state.pointers.size === 1) {
+        const p = state.pointers.values().next().value
+        state.lastPointerX = p.x
+        state.lastPointerY = p.y
+      }
+    }
+
+    const onWheel = e => {
+      // Prevent event bubbling from triggering external scroll
+      e.preventDefault()
+      e.stopPropagation()
+      // Normalize deltaY across deltaMode (Chrome uses pixels, Safari uses lines)
+      let delta = e.deltaY
+      if (e.deltaMode === 1) delta *= 16
+      else if (e.deltaMode === 2) delta *= 400
+
+      // Continuous zoom factor: smoother than fixed 1.1/0.9 steps
+      const zoomFactor = Math.pow(1.001, delta)
+
+      const curVb = wrap.__mermaidCurViewBox
+      const rect = getRect()
+      const px = curVb[0] + (e.clientX - rect.left) * (curVb[2] / rect.width)
+      const py = curVb[1] + (e.clientY - rect.top) * (curVb[3] / rect.height)
+      setCurVb(zoomAtPoint(curVb, zoomFactor, px, py))
+    }
+
+    const onDblClick = () => {
+      const init = wrap.__mermaidInitViewBox
+      if (init) setCurVb(init)
+    }
+
+    svg.addEventListener('pointerdown', onPointerDown, { signal: ac.signal })
+    svg.addEventListener('pointermove', onPointerMove, { signal: ac.signal })
+    svg.addEventListener('pointerup', onPointerUpOrCancel, { signal: ac.signal })
+    svg.addEventListener('pointercancel', onPointerUpOrCancel, { signal: ac.signal })
+    svg.addEventListener('wheel', onWheel, { passive: false, signal: ac.signal })
+    svg.addEventListener('dblclick', onDblClick, { signal: ac.signal })
+  }
+
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      // Clean up event listeners before removing old SVG
+      if (item.__mermaidAbortController) {
+        item.__mermaidAbortController.abort()
+      }
+      const oldSvg = item.querySelector('svg')
+      if (oldSvg) oldSvg.remove()
+      let config = {}
+      try {
+        config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      } catch (e) {
+        console.warn('[mermaid] failed to parse dataset.config:', e)
+      }
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+        if (false) initMermaidGestures(item)
+        item.__mermaidOriginalSvg = svg
+        if (false) attachMermaidViewerButton(item)
+      }
+
+      const handleError = err => {
+        console.error(`[mermaid] render failed for block #${index}:`, err)
+        const errorEl = document.createElement('div')
+        errorEl.className = 'mermaid-error'
+        errorEl.textContent = `Mermaid render error: ${err.message || err}`
+        mermaidSrc.insertAdjacentElement('afterend', errorEl)
+      }
+
+      try {
+        const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+        // mermaid v9 and v10 compatibility
+        if (typeof renderFn === 'string') {
+          renderMermaid(renderFn)
+        } else {
+          renderFn.then(({ svg }) => renderMermaid(svg)).catch(handleError)
+        }
+      } catch (err) {
+        handleError(err)
+      }
+    })
+  }
+
+  const codeToMermaid = $article => {
+    const codeMermaidEle = $article.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    const $article = document.getElementById('article-container')
+    if (!$article) return
+
+    if (true) codeToMermaid($article)
+    const $mermaid = $article.querySelectorAll('.mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid@11.16.0/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script defer src="/js/arbitrage.js"></script><script defer src="/js/works.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>
