@@ -1,8 +1,8 @@
 (function (root) {
   'use strict';
-  const CACHE_KEY = 'leon-works-kary2999-v1';
+  const CACHE_KEY = 'leon-works-kary2999-v2';
   const TTL = 30 * 60 * 1000;
-  const selected = ['monitor-swap', 'exchange-asset-report', 'markdownShow', 'prd-forge', 'quant-tool', 'go-skill', 'code-ferry', 'monitor', 'mini-bar', 'PerfMon', 'WebJudge', 'LazyCat', 'purr-swap', 'atool', 'P2P-Ws'];
+  const selected = ['monitor-swap', 'exchange-asset-report', 'markdownShow', 'prd-forge', 'quant-tool', 'go-skill', 'code-ferry', 'monitor', 'mini-bar', 'PerfMon', 'WebJudge', 'LazyCat', 'purr-swap', 'atool', 'P2P-Ws', 'work-boss'];
   const rank = name => selected.findIndex(item => item.toLowerCase() === String(name).toLowerCase());
   function select(repos) {
     return repos.filter(r => r && r.private === false && rank(r.name) >= 0)
@@ -47,25 +47,42 @@
       catalog = await response.json();
     } catch (_) { status.textContent = '项目详情暂不可用，仍将加载 GitHub 数据。'; }
     function enrich(card, repo) {
-      const detail = catalog[repo.name];
-      if (!detail) return;
+      const detail = catalog[repo.name] || {};
+      const images = Array.isArray(detail.images) ? detail.images : [];
+      const placeholder = '/assets/works-placeholder.svg';
+      function picture(item, className) {
+        const anchor = link('', item?.src || `https://github.com/kary2999/${encodeURIComponent(repo.name)}`);
+        anchor.className = className;
+        anchor.setAttribute('aria-label', `${repo.name}：${item ? '查看截图' : '查看项目'}`);
+        const img = node('img');
+        img.alt = item?.alt || `${repo.name} 项目缺省封面`;
+        img.loading = 'lazy'; img.decoding = 'async';
+        img.width = 800; img.height = 450;
+        img.addEventListener('error', () => {
+          img.src = placeholder;
+          img.alt = `${repo.name} 项目缺省封面`;
+          anchor.href = `https://github.com/kary2999/${encodeURIComponent(repo.name)}`;
+        }, {once:true});
+        img.src = item?.src || placeholder;
+        anchor.append(img);
+        return anchor;
+      }
+      card.insertBefore(picture(images[0], 'work-cover'), card.firstChild);
       if (detail.description) {
         const description = card.querySelector('.work-description');
         description.textContent = detail.description;
         description.title = detail.description;
       }
-      if (detail.images.length) {
+      if (images.length > 1) {
+        const details = node('details', '', 'work-screenshots');
+        details.append(node('summary', `更多截图（${images.length - 1}）`));
         const gallery = node('div', '', 'work-gallery');
-        detail.images.forEach(item => {
-          const anchor = link('', item.src);
-          const img = node('img'); img.src = item.src; img.alt = item.alt; img.loading = 'lazy';
-          img.addEventListener('error', () => { anchor.replaceChildren(node('span', '原截图暂不可用')); }, {once:true});
-          anchor.append(img); gallery.append(anchor);
-        });
-        card.insertBefore(gallery, card.firstChild);
+        images.slice(1).forEach(item => gallery.append(picture(item, 'work-thumbnail')));
+        details.append(gallery);
+        card.insertBefore(details, card.querySelector('.work-footer'));
       }
       const links = node('div', '', 'work-links');
-      detail.links.forEach(item => links.append(link(item.label + ' ↗', item.url)));
+      (detail.links || []).forEach(item => links.append(link(item.label + ' ↗', item.url)));
       card.insertBefore(links, card.querySelector('.work-footer'));
     }
     const more = host.querySelector('#works-more');
@@ -76,9 +93,6 @@
       card.append(heading, node('p', detail.description, 'work-description'), node('div', '', 'work-footer'));
       enrich(card, {name}); more.append(card);
     }
-    host.querySelectorAll('[data-scroll]').forEach(button => button.addEventListener('click', () => {
-      grid.scrollBy({left: Number(button.dataset.scroll) * grid.clientWidth * .85, behavior: 'smooth'});
-    }));
     let repos = [], notice = '', timestamp = 0;
     function render() {
       grid.replaceChildren();

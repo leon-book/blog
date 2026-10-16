@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#10252f"/><stop offset="1" stop-color="#141421"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#61cab9" stroke-opacity=".08"/></pattern></defs>
+  <path fill="url(#bg)" d="M0 0h800v450H0z"/><path fill="url(#grid)" d="M0 0h800v450H0z"/>
+  <rect x="310" y="108" width="180" height="140" rx="20" fill="#17353e" stroke="#40cbb7" stroke-opacity=".45"/>
+  <path d="m370 151-28 27 28 27m60-54 28 27-28 27m-18-62-24 70" fill="none" stroke="#55dbc8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="400" y="300" text-anchor="middle" fill="#d6eee9" font-family="Arial,sans-serif" font-size="25" letter-spacing="6">LEON · PROJECTS</text>
+  <text x="400" y="337" text-anchor="middle" fill="#8ba6aa" font-family="Arial,sans-serif" font-size="15" letter-spacing="3">BUILD · EXPLORE · SHARE</text>
+</svg>
