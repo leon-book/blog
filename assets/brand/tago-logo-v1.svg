@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 12 200 98" width="400" height="196" role="img" aria-label="tago">
+  <title>tago</title>
+  <g fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="translate(14.1 0) skewX(-10)">
+    <g stroke="#0f172a">
+      <path d="M16 22 V62 Q16 76 30 76 H34"/>
+      <path d="M5 44 H32"/>
+      <circle cx="66" cy="60" r="16"/>
+      <path d="M82 44 V76"/>
+    </g>
+    <g stroke="#00ADD8">
+      <circle cx="118" cy="60" r="16"/>
+      <path d="M134 44 V86 Q134 100 118 100 Q108 100 102 94"/>
+      <circle cx="170" cy="60" r="16"/>
+    </g>
+  </g>
+</svg>

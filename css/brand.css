@@ -1,0 +1,14 @@
+#blog-info .nav-site-title { display: inline-flex; align-items: center; gap: 6px; }
+#blog-info .nav-site-title .site-icon { height: 34px; width: auto; margin: 0; flex-shrink: 0; }
+#blog-info .logo-hero { display: block; }
+#blog-info .logo-light { display: none; }
+#page-header.nav-fixed #blog-info .logo-hero,
+#page-header.not-top-img #blog-info .logo-hero { display: none; }
+#page-header.nav-fixed #blog-info .logo-light,
+#page-header.not-top-img #blog-info .logo-light { display: block; }
+[data-theme='dark'] #page-header #blog-info .logo-hero { display: block; }
+[data-theme='dark'] #page-header #blog-info .logo-light { display: none; }
+@media (max-width: 380px) {
+  #blog-info .nav-site-title { gap: 4px; }
+  #blog-info .nav-site-title .site-name { font-size: 17px; }
+}
